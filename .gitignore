@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Post folder
+zackage/posts/
