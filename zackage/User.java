@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package zackage;
 
+import java.util.ArrayList;
 import java.util.*;
 
 public class User {  
