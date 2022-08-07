@@ -2,6 +2,7 @@ package zackage;
 import java.util.*;
 import java.io.*;
 
+
 /* ***************************************************************************************
                     MAIN.JS - DRIVER PROGRAM FOR (INSERT PROJECT NAME)
 ****************************************************************************************** */
@@ -14,7 +15,7 @@ public class Main {
     * @return: an ArrayList<Post> of all Posts that were read into memory
 */
 
-    public static ArrayList<Post> loadPosts() throws FileNotFoundException, IOException {
+    public static ArrayList<Post> loadPosts() {
 
         // initialize an ArrayList to store all Posts
         ArrayList<Post> readPosts = new ArrayList<Post>();
@@ -30,10 +31,12 @@ public class Main {
             String filename = listOfFiles[i].getName();
 
             // read that Post into an object using Post.readPost()
-            Post p = Post.readPost(filename);
+            Post p = Post.readPost(pathToPostsFolder + "/" + filename);
 
-            // add the newly read Post to the ArrayList
-            readPosts.add(p);
+            // if Post was read without any errors, add it to the ArrayList
+            if (p != null) {
+                readPosts.add(p);
+            }
         }
 
         // return ArrayList of Posts
@@ -56,34 +59,6 @@ public class Main {
 
 
 
-/* *********************************************
-        METHODS FOR DISPLAYING UI's
-
-    * essentially text wrappers for User
-    and Post methods that implement
-    application logic
-
-    -> all except menu() call a method in the
-    Post or User class with a similar name
-************************************************ */
-
-
-    public static void menu() {
-
-    }
-
-    public static void createPost() {
-
-    }
-
-    public static void deletePost() {
-
-    }
-
-
-
-
-
 
 
 /* *********************************************** 
@@ -96,8 +71,12 @@ public class Main {
         try {
             Main.loadPosts();
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
+
+        UI ui = new UI("user");
+        ui.homepage();
+        ui.menu();
         
     }
 }

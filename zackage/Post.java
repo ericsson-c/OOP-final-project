@@ -15,9 +15,10 @@ import java.io.*;
 public class Post implements Serializable {
 
 // ------------------- IGNORE ----------------------------- \\
+
     /* serialVersionUID: needed for Serializable Interface
     --> implementing Serializable allows us to read/write Posts to .bin files */
-    // private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 4L;
 // --------------------------------------------------------- \\
 
 
@@ -126,7 +127,7 @@ public class Post implements Serializable {
         - if successful, return the post that was read
         - if unsuccessful, return an empty post
 */
-    public static Post readPost(String filename) throws FileNotFoundException {
+    public static Post readPost(String filename) {
 
         try {
 
@@ -140,16 +141,17 @@ public class Post implements Serializable {
             return readPost;
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("File not found: " + filename);
+            return null;
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch(IOException e) {
+            System.err.println("Could not create ObjectInputStream for " + filename);
+            return null;
 
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Could not cast read object as Post");
+            return null;
         }
-
-        return new Post();
     }
 
     
