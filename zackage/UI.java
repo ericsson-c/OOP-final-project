@@ -43,18 +43,24 @@ public class UI {
         System.out.println("*".repeat(screenWidth));
     }
 
+    public static void printLine(String str) {
+    
+        String output = String.format("%-" + screenWidth + "s", str);
+        System.out.println(output);
+    }
+
+
     public void homepage() {
 
         printLine();
-        System.out.println("Welcome, " + user.getUsername() + "!");
-        System.out.println("Press any key to login.");
+        printLine("Welcome, " + user.getUsername() + "!");
+        printLine("Press any key to login.");
     }
 
 
     public void menu() {
 
         printLine();
-
     }
 
     public void createPost() {
@@ -63,6 +69,12 @@ public class UI {
 
     public void deletePost() {
 
+    }
+
+    public static void main(String[] args) {
+        
+        UI ui = new UI(new User("ericsson", "password"));
+        ui.homepage();
     }
 
     
