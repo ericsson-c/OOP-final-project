@@ -1,4 +1,6 @@
 package zackage;
+import java.io.*;
+
 
 public class Moderator extends User {
     
@@ -9,18 +11,12 @@ public class Moderator extends User {
     private String username;
     private String password;
 
-    public User(String u, String pw) {
-
-        this.username = u;
-        this.password = pw;
-    }
-
     public boolean createPost(String text) {
 
         Post newPost = new Post(text, username);
         return true;
     }
-    
+
     @Override
     public boolean deletePost(int postID, User user) {
 
@@ -35,5 +31,11 @@ public class Moderator extends User {
         }
 
         return true;
+    }
+
+    public void printUser(){
+
+        System.out.println(ANSI_GREEN + this.username + ANSI_RESET);
+
     }
 }

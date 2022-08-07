@@ -205,6 +205,7 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
+        
         return "@" + this.user + "\n\n" + this.text;
     }
 
