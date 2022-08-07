@@ -9,9 +9,9 @@ public class User {
     protected String username;
     private String password;
     protected boolean canPost = true;
+    protected String color = "\u001B[46m";
 
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[41m";
 
     public User() {
         
@@ -55,7 +55,7 @@ public class User {
 
     public void printUser(){
 
-        System.out.println(ANSI_CYAN + this.username + ANSI_RESET);
+        System.out.println(color + username + ANSI_RESET);
 
     }
 

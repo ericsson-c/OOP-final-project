@@ -6,8 +6,7 @@ public class Admin extends User {
         super(u, pw);
     }
 
-    private String username;
-    private String password;
+    protected String color = "\u001B[41m";
 
     public boolean createPost(String text) {
 
@@ -44,13 +43,5 @@ public class Admin extends User {
         }
 
     }
-
-    public void printUser(){
-
-        System.out.println(ANSI_RED + this.username + ANSI_RESET);
-
-    }
-
-
 
 }

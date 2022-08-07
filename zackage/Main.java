@@ -74,19 +74,14 @@ public class Main {
             // e.printStackTrace();
         }
 
-<<<<<<< HEAD
-        UI ui = new UI("user");
-        ui.homepage();
-        ui.menu();
-
         User u = new User("zack", "zack");
 
+        UI ui = new UI(u);
+        ui.homepage();
+        ui.menu();
+        
+
         u.printUser();
-=======
-        // UI ui = new UI("user");
-        // ui.homepage();
-        // ui.menu();
->>>>>>> c61398ab3aafba39fda4885ef23f79959ee3825a
         
     }
 }

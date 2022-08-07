@@ -8,8 +8,7 @@ public class Moderator extends User {
         super(u, pw);
     }
 
-    private String username;
-    private String password;
+    protected String color = "\u001B[42m";
 
     public boolean createPost(String text) {
 
@@ -33,9 +32,4 @@ public class Moderator extends User {
         return true;
     }
 
-    public void printUser(){
-
-        System.out.println(ANSI_GREEN + this.username + ANSI_RESET);
-
-    }
 }
