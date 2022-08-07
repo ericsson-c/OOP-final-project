@@ -9,12 +9,6 @@ public class Moderator extends User {
     private String username;
     private String password;
 
-    public User(String u, String pw) {
-
-        this.username = u;
-        this.password = pw;
-    }
-
     public boolean createPost(String text) {
 
         Post newPost = new Post(text, username);

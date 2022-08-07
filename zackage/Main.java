@@ -74,9 +74,9 @@ public class Main {
             // e.printStackTrace();
         }
 
-        UI ui = new UI("user");
-        ui.homepage();
-        ui.menu();
+        // UI ui = new UI("user");
+        // ui.homepage();
+        // ui.menu();
         
     }
 }

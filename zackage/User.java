@@ -14,6 +14,10 @@ public class User {
         this.password = pw;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public boolean createPost(String text) {
 
         Post newPost = new Post(text, username);
@@ -25,7 +29,7 @@ public class User {
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
             Post curr = Post.allPosts.get(i);
-            if (curr.getID() == postID && curr.getUser() == user) {
+            if (curr.getID() == postID && curr.getUser() == user.username) {
 
                 // TODO: remove file from folder...
                 Post.allPosts.remove(curr);
