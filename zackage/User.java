@@ -19,6 +19,10 @@ public class User {
         this.password = pw;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public boolean createPost(String text) {
 
         Post newPost = new Post(text, username);

@@ -16,7 +16,7 @@ package zackage;
 public class UI {
 
     // currently logged in user
-    private String username;
+    private User user;
 
     // width (in characters) of program "screen"
     private static int screenWidth = 50;
@@ -29,8 +29,8 @@ public class UI {
 
     };
 
-    public UI(String user) {
-        this.username = user;
+    public UI(User user) {
+        this.user = user;
     }
 
 
@@ -46,7 +46,8 @@ public class UI {
     public void homepage() {
 
         printLine();
-        System.out.println("Welcome, " + username + "!");
+        System.out.println("Welcome, " + user.getUsername() + "!");
+        System.out.println("Press any key to login.");
     }
 
 

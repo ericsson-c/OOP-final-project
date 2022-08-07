@@ -74,6 +74,7 @@ public class Main {
             // e.printStackTrace();
         }
 
+<<<<<<< HEAD
         UI ui = new UI("user");
         ui.homepage();
         ui.menu();
@@ -81,6 +82,11 @@ public class Main {
         User u = new User("zack", "zack");
 
         u.printUser();
+=======
+        // UI ui = new UI("user");
+        // ui.homepage();
+        // ui.menu();
+>>>>>>> c61398ab3aafba39fda4885ef23f79959ee3825a
         
     }
 }
