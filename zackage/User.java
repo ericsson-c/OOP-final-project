@@ -25,7 +25,7 @@ public class User {
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
             Post curr = Post.allPosts.get(i);
-            if (curr.getID() == postID) {
+            if (curr.getID() == postID && curr.getUser() == user) {
 
                 // TODO: remove file from folder...
                 Post.allPosts.remove(curr);
@@ -34,5 +34,7 @@ public class User {
 
         return true;
     }
+
+
 
 }
