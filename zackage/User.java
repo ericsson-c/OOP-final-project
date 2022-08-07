@@ -9,9 +9,7 @@ public class User {
     protected String username;
     private String password;
     protected boolean canPost = true;
-    protected String color = "\u001B[46m";
 
-    public static final String ANSI_RESET = "\u001B[0m";
 
     public User() {
         
@@ -29,7 +27,7 @@ public class User {
 
     public boolean createPost(String text) {
 
-        Post newPost = new Post(text, username);
+        Post newPost = new Post(text, this);
         return true;
     }
 
@@ -38,7 +36,7 @@ public class User {
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
             Post curr = Post.allPosts.get(i);
-            if (curr.getID() == postID && curr.getUser() == user.username) {
+            if (curr.getID() == postID && curr.getUser().username == user.username) {
 
                 // TODO: remove file from folder...
                 Post.allPosts.remove(curr);
@@ -55,7 +53,7 @@ public class User {
 
     public void printUser(){
 
-        System.out.println(color + username + ANSI_RESET);
+        System.out.println(username);
 
     }
 

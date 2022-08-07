@@ -74,7 +74,7 @@ public class Main {
             // e.printStackTrace();
         }
 
-        User u = new User("zack", "zack");
+        User u = new Admin("zack", "zack");
 
         UI ui = new UI(u);
         ui.homepage();
