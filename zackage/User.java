@@ -1,15 +1,26 @@
 package zackage;
 
-import java.util.ArrayList;
-import java.util.*;
-import java.io.*;
+/* 
+JColor: package for printing text in different colors in the Terminal.
+Compatible with Windows, MacOS, and linux.
+
+@source: https://github.com/dialex/JColor 
+@author: Diogo Nunes
+*/
+import static com.diogonunes.jcolor.Ansi.colorize;
+import com.diogonunes.jcolor.Attribute;
+import static com.diogonunes.jcolor.Attribute.*;
+// we use it to print each user's username as a different color
+// depending on whether they are an admin, moderator, or basic user
+
 
 public class User {  
 
     protected String username;
     private String password;
     protected boolean canPost = true;
-    // protected String color = "\u001B[46m";
+
+    protected Attribute color = NONE();
 
 
     public User() {
@@ -52,9 +63,9 @@ public class User {
         password = null;
     }
 
-    public void printUser(){
+    public void printUsername(){
 
-        System.out.println(username);
+        System.out.println(colorize(username, color));
     }
 
 

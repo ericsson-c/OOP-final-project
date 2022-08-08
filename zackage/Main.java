@@ -68,17 +68,20 @@ public class Main {
         
         // Post p = new Post();
 
+        /*
         try {
             Main.loadPosts();
         } catch (Exception e) {
             // e.printStackTrace();
         }
+        */
 
-        User u = new Admin("zack", "zack");
+        User zack = new Admin("zack", "zack");
+        User ericsson = new Moderator("ericsson", "password");
+        User user = new User("username", "password");
 
-        UI ui = new UI(u);
-        ui.homepage();
-
-        
+        zack.printUsername();
+        ericsson.printUsername();
+        user.printUsername();
     }
 }

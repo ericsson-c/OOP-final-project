@@ -1,12 +1,16 @@
 package zackage;
 
+import com.diogonunes.jcolor.Attribute;
+import static com.diogonunes.jcolor.Attribute.*;
+import static com.diogonunes.jcolor.Ansi.colorize;
+
 public class Admin extends User {
     
     public Admin(String u, String pw) {
         super(u, pw);
     }
 
-    protected String color = "\u001B[41m";
+    protected Attribute color = RED_TEXT();
 
 
     public void setPrivileges(User user, boolean set){
@@ -24,9 +28,9 @@ public class Admin extends User {
 
     }
     
-    public void printUser(){
+    @Override
+    public void printUsername(){
 
-        System.out.println(username + " (A)");
-
+        System.out.println(colorize(username + " (A)", color));
     }
 }

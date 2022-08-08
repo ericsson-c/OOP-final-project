@@ -1,5 +1,8 @@
 package zackage;
-import java.io.*;
+
+import com.diogonunes.jcolor.Attribute;
+import static com.diogonunes.jcolor.Attribute.*;
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 
 public class Moderator extends User {
@@ -8,7 +11,8 @@ public class Moderator extends User {
         super(u, pw);
     }
 
-    protected String color = "\u001B[42m";
+    protected Attribute color = BLUE_TEXT();
+
 
     @Override
     public boolean deletePost(int postID, User user) {
@@ -26,10 +30,10 @@ public class Moderator extends User {
         return true;
     }
 
-    public void printUser(){
+    @Override
+    public void printUsername(){
 
-        System.out.println(username + " (M)");
-
+        System.out.println(colorize(username + " (M)", color));
     }
 
 }
