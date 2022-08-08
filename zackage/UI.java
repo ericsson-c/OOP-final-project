@@ -75,6 +75,8 @@ public class UI {
 
     public void deletePost() {
 
+        printLine();
+
     }
 
     public static void main(String[] args) {
