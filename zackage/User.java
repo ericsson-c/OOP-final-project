@@ -1,4 +1,6 @@
 package zackage;
+import java.util.*;
+import java.io.*;
 
 /* 
 JColor: package for printing text in different colors in the Terminal.
@@ -19,23 +21,53 @@ import java.util.ArrayList;
 public class User {  
 
     //Static Attributes
-    static private ArrayList<String[]> allUsers = new ArrayList();
+    static private ArrayList<User> allUsers = new ArrayList<User>();
 
     //Non-Static Attributes
     protected String username;
     private String password;
     protected boolean canPost = true;
     protected Attribute color = NONE();
+    // ArrayList of user's posts
+    protected ArrayList<Post> posts = new ArrayList<Post>();
 
 
 
 //Static Methods
     //Open all users method
+    public static User readUser(String filename) {
+
+        try {
+
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Object readObject = ois.readObject();
+            User readUser = (User) readObject;
+
+            ois.close();
+
+            return readUser;
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + filename);
+            return null;
+
+        } catch(IOException e) {
+            System.err.println("Could not create ObjectInputStream for " + filename);
+            return null;
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Could not cast read object as User");
+            return null;
+        }
+    }
+
     
     //check username and password validity
-    protected static boolean checkFor(String u, String pw){
+    protected static boolean checkFor(String u, String pw) {
+
         for (int i=0; i<allUsers.size(); i++){
-            if (allUsers.get(i)[0].equals(u) && allUsers.get(i)[1].equals(pw)){
+            if (allUsers.get(i).username.equals(u) && allUsers.get(i).username.equals(pw)){
                 return true;
             }
         }
@@ -44,10 +76,7 @@ public class User {
 
 
 
-
-
 //Non-Static Methods
-
 
     public User() {
         
@@ -57,9 +86,8 @@ public class User {
         this.username = u;
         this.password = pw;
         
-        //Adding username and password to the all users array 
-        String[] toAdd = {u, pw};
-        allUsers.add(toAdd);
+        //Adding new user to the all users array 
+        User.allUsers.add(this);
     }
 
     public String getUsername() {
