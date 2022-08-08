@@ -13,15 +13,40 @@ import static com.diogonunes.jcolor.Attribute.*;
 // we use it to print each user's username as a different color
 // depending on whether they are an admin, moderator, or basic user
 
+import java.util.ArrayList;
+
 
 public class User {  
 
+    //Static Attributes
+    static private ArrayList<String[]> allUsers = new ArrayList();
+
+    //Non-Static Attributes
     protected String username;
     private String password;
     protected boolean canPost = true;
-
-
     protected Attribute color = NONE();
+
+
+
+//Static Methods
+    //Open all users method
+    
+    //check username and password validity
+    protected static boolean checkFor(String u, String pw){
+        for (int i=0; i<allUsers.size(); i++){
+            if (allUsers.get(i)[0].equals(u) && allUsers.get(i)[1].equals(pw)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+//Non-Static Methods
 
 
     public User() {
@@ -29,9 +54,12 @@ public class User {
     }
 
     public User(String u, String pw) {
-
         this.username = u;
         this.password = pw;
+        
+        //Adding username and password to the all users array 
+        String[] toAdd = {u, pw};
+        allUsers.add(toAdd);
     }
 
     public String getUsername() {
@@ -39,7 +67,6 @@ public class User {
     }
 
     public boolean createPost(String text) {
-
         Post newPost = new Post(text, this);
         return true;
     }
