@@ -40,3 +40,6 @@ zackage/posts/
 # DS_Store
 .DS_Store
 
+# JColor package
+com/
+

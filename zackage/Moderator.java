@@ -11,6 +11,7 @@ public class Moderator extends User {
         super(u, pw);
     }
 
+    // Moderator usernames are printed in Blue
     protected Attribute color = BLUE_TEXT();
 
 
