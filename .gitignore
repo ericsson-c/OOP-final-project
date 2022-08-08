@@ -34,5 +34,9 @@
 # Post folder
 zackage/posts/
 
-# .class files
+# .Class files
 *.class
+
+# DS_Store
+.DS_Store
+
