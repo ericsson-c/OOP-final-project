@@ -10,12 +10,6 @@ public class Moderator extends User {
 
     protected String color = "\u001B[42m";
 
-    public boolean createPost(String text) {
-
-        Post newPost = new Post(text, username);
-        return true;
-    }
-
     @Override
     public boolean deletePost(int postID, User user) {
 
@@ -30,6 +24,12 @@ public class Moderator extends User {
         }
 
         return true;
+    }
+
+    public void printUser(){
+
+        System.out.println(username + " (M)");
+
     }
 
 }

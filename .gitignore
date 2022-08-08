@@ -33,3 +33,6 @@
 
 # Post folder
 zackage/posts/
+
+# .class files
+*.class

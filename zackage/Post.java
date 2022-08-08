@@ -51,8 +51,8 @@ public class Post implements Serializable {
         - when written to file, filaname is "{Post.id}.bin */
     private int id;
 
-    // username of the user who posted this Post
-    private String user;
+    // user who posted this Post
+    protected User user;
 
     // timestamp of when the user posted this Post
     private Date postedAt;
@@ -82,7 +82,7 @@ public class Post implements Serializable {
     * @params: text content of the post, user who posted it
     * @return: void
 */
-    public Post(String text, String user) {
+    public Post(String text, User user) {
 
         this.postedAt = new Date(System.currentTimeMillis());
         this.likes = 0;
@@ -109,7 +109,7 @@ public class Post implements Serializable {
         return text;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -206,7 +206,7 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         
-        return "@" + this.user + "\n\n" + this.text;
+        return "@" + user + "\n\n" + this.text;
     }
 
 

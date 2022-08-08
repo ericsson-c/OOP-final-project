@@ -28,7 +28,7 @@ public class User {
 
     public boolean createPost(String text) {
 
-        Post newPost = new Post(text, username);
+        Post newPost = new Post(text, this);
         return true;
     }
 
@@ -37,7 +37,7 @@ public class User {
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
             Post curr = Post.allPosts.get(i);
-            if (curr.getID() == postID && curr.getUser() == user.username) {
+            if (curr.getID() == postID && curr.getUser().username == user.username) {
 
                 // TODO: remove file from folder...
                 Post.allPosts.remove(curr);
@@ -50,6 +50,11 @@ public class User {
     public void deleteUser(){
         username = null;
         password = null;
+    }
+
+    public void printUser(){
+
+        System.out.println(username);
     }
 
 
