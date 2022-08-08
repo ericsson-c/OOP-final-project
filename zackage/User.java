@@ -20,6 +20,7 @@ public class User {
     private String password;
     protected boolean canPost = true;
 
+
     protected Attribute color = NONE();
 
 
