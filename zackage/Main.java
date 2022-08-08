@@ -78,10 +78,7 @@ public class Main {
 
         UI ui = new UI(u);
         ui.homepage();
-        ui.menu();
-        
 
-        u.printUser();
         
     }
 }

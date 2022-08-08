@@ -43,6 +43,12 @@ public class UI {
         System.out.println("*".repeat(screenWidth));
     }
 
+    /*
+    public static void printEmptyLine() {
+        System.out.println(" ".repeat(screenWidth));
+    }
+    */
+
     public static void printLine(String str) {
     
         String output = String.format("%-" + screenWidth + "s", str);
@@ -53,7 +59,7 @@ public class UI {
     public void homepage() {
 
         printLine();
-        printLine("Welcome, " + user.getUsername() + "!");
+        printLine("\nWelcome, " + user.getUsername() + "!");
         printLine("Press any key to login.");
     }
 
