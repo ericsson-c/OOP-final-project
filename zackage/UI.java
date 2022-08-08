@@ -60,24 +60,40 @@ public class UI {
     public void homepage() {
 
         printLine();
-        printLine("\nWelcome, " + user.getUsername() + "!");
-        printLine("Press enter key to login.");
-        //don't implement press enter key to login in main
-        try{System.in.read();}
-		    catch(Exception e){}
+        printLine("\nWelcome! press L to login or R to register.");
+    }
+    
+    public String[] register(Scanner kb) {
+        printLine();
+        System.out.println("Username: ");
+        String username = kb.next();
+        System.out.println("Password: ");
+        String password = kb.next();
+
+        String strLst[]  = { username, password };
+        return strLst;
     }
 
     public String[] login(Scanner kb){
+
         printLine();
-        printLine("\nUsername: ");
-        String username = kb.next();
-        printLine("\nPassword: ");
-        String password = kb.next();
+
+        boolean loggedIn = false;
         String strLst[]  = new String[2];
-        strLst[0] = username;
-        strLst[1] = password;
+        while(!loggedIn) {
+            System.out.println("Username: ");
+            String username = kb.next();
+            System.out.println("Password: ");
+            String password = kb.next();
+            
+            strLst[0] = username;
+            strLst[1] = password;
+
+            loggedIn = User.checkFor(username, password);
+        }
 
         return strLst;
+   
     }
 
 
@@ -132,7 +148,7 @@ public class UI {
         printLine();
         for(int i = 0; i < user.posts.size(); i++){
             printLine();
-            System.out.println(posts[i].getID() + " | " + posts[i]);
+            System.out.println(user.posts.get(i).getID() + " | " + user.posts.get(i));
             printLine();
         }
 
@@ -153,11 +169,10 @@ public class UI {
 
         printLine("Type the ID of the post you want to delete: ");
         int delete_id = kb.nextInt();
-
+        printLine();
         return delete_id;
 
-        printLine();
-
+        
     }
 
     public static void main(String[] args) {
