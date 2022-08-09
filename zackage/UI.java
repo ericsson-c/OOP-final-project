@@ -92,16 +92,13 @@ public class UI {
         printLine();
 
         User loggedInUser = null;
-        String strLst[]  = new String[2];
+
         while(loggedInUser == null) {
             System.out.print("Username: ");
             String username = kb.next();
             System.out.print("Password: ");
             String password = kb.next();
-            
-            strLst[0] = username;
-            strLst[1] = password;
-
+    
             loggedInUser = User.login(username, password);
 
             if (loggedInUser == null) {
@@ -209,6 +206,7 @@ public class UI {
 
 
     public static void showAllPosts() {
+        System.out.println("allPosts: " + Post.allPosts);
         for (int i = 0; i < Post.allPosts.size(); i++) {
             printLine();
             System.out.println(Post.allPosts.get(i));
@@ -259,6 +257,11 @@ public class UI {
             printLine("Only Admins can revoke privileges.");
             return false;
         }
+    }
+
+    public static void badChoice() {
+        printLine();
+        printLine("Not a valid selection.");
     }
 
     // for testing

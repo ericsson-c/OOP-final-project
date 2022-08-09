@@ -30,13 +30,11 @@ public class Main {
 
             File postsFolder = new File(pathToPostsFolder);
             File[] listOfFiles = postsFolder.listFiles();
-            // System.out.println(listOfFiles);
 
             for (int i = 0; i < listOfFiles.length; i++) {
 
                 // get name of file ( should be {PostID}.bin )
                 String filename = listOfFiles[i].getName();
-                System.out.println(filename);
 
                 // read that Post into an object using Post.readPost()
                 Post p = Post.readPost(filename);
@@ -76,15 +74,22 @@ public class Main {
 
             for (int i = 0; i < listOfFiles.length; i++) {
 
-                // get name of file ( should be {PostID}.bin )
+                // get name of file ( should be {username}.bin )
                 String filename = listOfFiles[i].getName();
-                System.out.println(filename);
 
-                // read that Post into an object using Post.readPost()
+                // first try reading as an Admin, then Moderator, then User
+                Admin a = Admin.readAdmin(filename);
+                Moderator m = Moderator.readModerator(filename);
                 User u = User.readUser(filename);
 
                 // if Post was read without any errors, add it to the ArrayList
-                if (u != null) {
+                if (a != null) {
+                    User.allUsers.add(a);
+
+                } else if (m != null) {
+                    User.allUsers.add(m);
+
+                } else if (u != null) {
                     User.allUsers.add(u);
                 }
             }
@@ -164,9 +169,10 @@ public class Main {
         // start by loading in Users and Posts from /users and /posts folders
 
         boolean postsLoaded = loadPosts();
-        // boolean usersLoaded = loadUsers();
+        boolean usersLoaded = loadUsers();
 
-        System.out.println(postsLoaded);
+        // System.out.println(postsLoaded);
+        // System.out.println(usersLoaded);
 
 
         Scanner input = new Scanner(System.in);
@@ -232,9 +238,9 @@ public class Main {
                 UI.setPrivileges();
             }
 
-            else if(userChoice.equals("6")) {
+            else if (!userChoice.equalsIgnoreCase("Q")) {
 
-
+                UI.badChoice();
             }
 
 

@@ -3,7 +3,7 @@ package zackage;
 import com.diogonunes.jcolor.Attribute;
 import static com.diogonunes.jcolor.Attribute.*;
 
-import java.io.Serializable;
+import java.io.*;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
@@ -17,6 +17,41 @@ public class Moderator extends User {
     * Can additionally delete the post of any User, Admin, or Moderator
 
 *************************************************** */
+
+    private static final long serialVersionUID = 5L;
+
+    public static Moderator readModerator(String filename) {
+
+        try {
+
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/zackage/users/" + filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Object readObject = ois.readObject();
+
+            Moderator readUser = (Moderator) readObject;
+
+            ois.close();
+            return readUser;
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + filename);
+            return null;
+
+        } catch(IOException e) {
+            e.printStackTrace();
+            System.err.println("Could not create ObjectInputStream for " + filename);
+            return null;
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Could not cast read object as User");
+            return null;
+
+        // if the read user is not a moderator
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+
     
     public Moderator(String u, String pw) {
         super(u, pw);

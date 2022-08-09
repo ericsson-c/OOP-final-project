@@ -31,11 +31,11 @@ import java.util.ArrayList;
 public class User implements Serializable {  
 
     //Static Attributes
-    static protected ArrayList<User> allUsers = new ArrayList<User>();
+    public static ArrayList<User> allUsers = new ArrayList<User>();
 
     //Non-Static Attributes
     protected String username;
-    private String password;
+    protected String password;
     protected boolean canPost = true;
     protected Attribute color = NONE();
 
@@ -53,7 +53,7 @@ public class User implements Serializable {
     protected static boolean checkFor(String u, String pw) {
 
         for (int i=0; i<allUsers.size(); i++){
-            if (allUsers.get(i).username.equals(u) && allUsers.get(i).username.equals(pw)){
+            if (allUsers.get(i).username.equals(u) && allUsers.get(i).password.equals(pw)){
                 return true;
             }
         }
@@ -61,8 +61,10 @@ public class User implements Serializable {
     }
 
     protected static User login(String u, String pw) {
-        for (int i=0; i<allUsers.size(); i++){
-            if (allUsers.get(i).username.equals(u) && allUsers.get(i).username.equals(pw)){
+
+        for (int i=0; i<allUsers.size(); i++) {
+
+            if (allUsers.get(i).username.equals(u) && allUsers.get(i).password.equals(pw)){
                 return allUsers.get(i);
             }
         }
@@ -111,13 +113,13 @@ public class User implements Serializable {
 
         try {
 
-            FileInputStream fis = new FileInputStream(filename);
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/zackage/users/" + filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object readObject = ois.readObject();
+
             User readUser = (User) readObject;
 
             ois.close();
-
             return readUser;
 
         } catch (FileNotFoundException e) {
@@ -152,7 +154,7 @@ public class User implements Serializable {
 
         try {
             
-            FileOutputStream fos = new FileOutputStream(username + ".bin");
+            FileOutputStream fos = new FileOutputStream(new File("zackage/users/" + username + ".bin"));
             ObjectOutputStream ois = new ObjectOutputStream(fos);
             ois.writeObject(this);
 
@@ -251,5 +253,30 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return colorize(username, color);
+    }
+
+    public static void main(String[] args) {
+        Admin zach = new Admin("zach", "crunched");
+        Moderator ericsson = new Moderator("ericsson", "saporro");
+        User user = new User("username", "password");
+        // user.save();
+
+        //System.out.println(zach.save());
+        //System.out.println(ericsson.save());
+
+        
+        zach = Admin.readAdmin("zach.bin");
+        ericsson = Moderator.readModerator("ericsson.bin");
+        user = User.readUser("username.bin");
+
+
+        // User f = User.readUser("ericsson.bin");
+
+        
+        System.out.println(ericsson);
+        System.out.println(zach);
+        System.out.println(user);
+        
+
     }
 }
