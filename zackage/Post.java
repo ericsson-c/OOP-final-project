@@ -164,13 +164,13 @@ public class Post implements Serializable {
         - true if file write was successful
         - false if an error occured
 */
-    public static boolean writePost(Post post, String filename) throws FileNotFoundException {
+    public boolean save() {
 
         try {
             
-            FileOutputStream fos = new FileOutputStream(filename);
+            FileOutputStream fos = new FileOutputStream(id + ".bin");
             ObjectOutputStream ois = new ObjectOutputStream(fos);
-            ois.writeObject(post);
+            ois.writeObject(this);
 
             ois.flush();
             ois.close();

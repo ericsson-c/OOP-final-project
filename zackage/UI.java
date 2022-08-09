@@ -22,6 +22,8 @@ public class UI {
     // width (in characters) of program "screen"
     private static int screenWidth = 50;
 
+    private Scanner kb;
+
 /* *********************************************** 
                     CONSTRUCTORS
 ************************************************** */
@@ -30,8 +32,9 @@ public class UI {
 
     };
 
-    public UI(User user) {
+    public UI(User user, Scanner s) {
         this.user = user;
+        this.kb = s;
     }
 
 
@@ -57,13 +60,13 @@ public class UI {
     }
 
 
-    public void homepage() {
+    public static void homepage() {
 
         printLine();
         printLine("\nWelcome! press L to login or R to register.");
     }
     
-    public String[] register(Scanner kb) {
+    public String[] register() {
         printLine();
         System.out.println("Username: ");
         String username = kb.next();
@@ -74,7 +77,7 @@ public class UI {
         return strLst;
     }
 
-    public String[] login(Scanner kb){
+    public String[] login(){
 
         printLine();
 
@@ -115,15 +118,25 @@ public class UI {
 
     }
 
-    public String createPost(Scanner kb) {
-        printLine();
-        printLine("\nPlease enter your post:\n");
-        String post_text = kb.nextLine();
+    public String createPost() {
 
-        return post_text;
+        printLine();
+        if (user.canPost) {
+
+            printLine("\nPlease enter your post:\n");
+            String post_text = kb.nextLine();
+            return post_text;
+
+        } else {
+
+            printLine("Your post privilieges have been revoked!");
+            return "";
+        }
+        
+         
     }
 
-    public void deletePost(Scanner kb){
+    public void deletePost(){
         printLine();
         if( this.user instanceof Moderator){
             printLine("1. Delete your Post");
@@ -132,19 +145,18 @@ public class UI {
             int opt = kb.nextInt();
 
             if(opt == 1){
-                user_deletePost(this.user, kb);
+                user_deletePost(this.user);
             }
             else{
-                mod_deletePost(kb);
+                mod_deletePost();
             }
         }
         else{
-            user_deletePost(this.user, kb);
+            user_deletePost(this.user);
         }
-
     }
 
-    public int user_deletePost(User user, Scanner kb){
+    public int user_deletePost(User user){
         printLine();
         for(int i = 0; i < user.posts.size(); i++){
             printLine();
@@ -158,7 +170,8 @@ public class UI {
         return delete_id;
     }
 
-    public int mod_deletePost(Scanner kb){
+    public int mod_deletePost(){
+        
         printLine();
         for(int i = 0; i < Post.allPosts.size(); i++){
             printLine();
@@ -177,8 +190,6 @@ public class UI {
 
     public static void main(String[] args) {
         
-        UI ui = new UI(new User("ericsson", "password"));
-        ui.homepage();
     }
 
     

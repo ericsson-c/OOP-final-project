@@ -10,6 +10,7 @@ public class Admin extends User {
         super(u, pw);
     }
 
+    // Admin username are printed in Red
     protected Attribute color = RED_TEXT();
 
 
