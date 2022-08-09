@@ -1,8 +1,6 @@
 package zackage;
 import java.util.*;
 
-// maybe implement this as singleton??
-
 /* ************************************************
                     "UI" CLASS
 
@@ -17,17 +15,19 @@ import java.util.*;
 public class UI {
 
     // currently logged in user
-    private static User user;
+    protected static User user;
 
     // width (in characters) of program "screen"
     private static int screenWidth = 50;
 
-    private static Scanner kb;
+    // single instance of Scanner created in Main
+    protected static Scanner kb;
 
 /* *********************************************** 
                     CONSTRUCTORS
 ************************************************** */
 
+    /*
     public UI() {
 
     };
@@ -36,37 +36,46 @@ public class UI {
         this.user = user;
         this.kb = s;
     }
+    */
 
 
 /* *********************************************** 
-                    METHODS
+                GETTERS / SETTERS
+************************************************** */
+
+
+/* *********************************************** 
+                OTHER METHODS
 ************************************************** */
 
     public static void printLine() {
 
-        System.out.println("*".repeat(screenWidth));
+        System.out.println("*".repeat(screenWidth) + "\n");
     }
 
-    /*
-    public static void printEmptyLine() {
-        System.out.println(" ".repeat(screenWidth));
-    }
-    */
-
+    
     public static void printLine(String str) {
     
         String output = String.format("%-" + screenWidth + "s", str);
         System.out.println(output);
     }
 
-
+    
     public static void homepage() {
 
         printLine();
-        printLine("\nWelcome! press L to login or R to register.");
+        printLine("Welcome! press L to login or R to register.");
+        askForInput();
+    }
+
+
+    public static void askForInput() {
+        printLine("\n> ");
     }
     
+
     public static String[] register() {
+
         printLine();
         System.out.println("Username: ");
         String username = kb.next();
@@ -77,7 +86,8 @@ public class UI {
         return strLst;
     }
 
-    public String[] login(){
+
+    public static String[] login(){
 
         printLine();
 
@@ -96,18 +106,19 @@ public class UI {
         }
 
         return strLst;
-   
     }
 
 
-    public static void menu(User user) {
+    public static void menu() {
 
         printLine();
-        printLine("\n1. Create Post");
+        printLine("1. Create Post");
         printLine("2. Delete Post");
         printLine( "3. Show Your Posts ");
         printLine("4. Search for User's Posts");
         printLine("5. Show all Posts");
+        askForInput();
+
         if(user instanceof Admin){
             printLine("6. Remove Post Privileges of User");
             printLine("Type \"Q\" to Log Out");
@@ -115,12 +126,13 @@ public class UI {
         else{
             printLine("Type \"Q\" to Log Out");
         }
-
     }
 
-    public static String createPost(User user) {
+
+    public static String createPost() {
 
         printLine();
+
         if (user.canPost) {
 
             printLine("\nPlease enter your post:\n");
@@ -131,17 +143,18 @@ public class UI {
 
             printLine("Your post privilieges have been revoked!");
             return "";
-        }
-        
-         
+        } 
     }
 
-    public static int deletePost(User user){
+
+    public static int deletePost(){
+
         printLine();
+
         if( user instanceof Moderator){
             printLine("1. Delete your Post");
             printLine( "2. Delete any Post");
-            printLine("Choose an option: ");
+            System.out.println("\nChoose an option: ");
             int opt = kb.nextInt();
 
             if(opt == 1){
@@ -156,42 +169,44 @@ public class UI {
         }
     }
 
+
     public static int user_deletePost(User user){
+
         printLine();
+
         for(int i = 0; i < user.posts.size(); i++){
+            
             printLine();
             System.out.println(user.posts.get(i).getID() + " | " + user.posts.get(i));
             printLine();
         }
 
-        printLine("Type the ID of the post you want to delete: ");
+        System.out.println("\nType the ID of the post you want to delete: ");
         int delete_id = kb.nextInt();
 
         return delete_id;
     }
+
 
     public static int mod_deletePost(){
         
         printLine();
+
         for(int i = 0; i < Post.allPosts.size(); i++){
             printLine();
             System.out.println(Post.allPosts.get(i).getID() + " | " + Post.allPosts.get(i));
             printLine();
-
         }
 
-        printLine("Type the ID of the post you want to delete: ");
+        printLine("\nType the ID of the post you want to delete: ");
         int delete_id = kb.nextInt();
-        printLine();
-        return delete_id;
 
-        
+        return delete_id;
     }
 
+
+    // for testing
     public static void main(String[] args) {
         
     }
-
-    
-    
 }

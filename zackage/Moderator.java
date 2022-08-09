@@ -29,7 +29,7 @@ public class Moderator extends User {
     //delete's a user's post
     //Parameters: int: postID, User: user
     @Override
-    public boolean deletePost(int postID, User user) {
+    public boolean deletePost(int postID) {
 
         for (int i = 0; i < Post.allPosts.size(); i++) {
 

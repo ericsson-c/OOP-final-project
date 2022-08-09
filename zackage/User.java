@@ -18,6 +18,17 @@ import static com.diogonunes.jcolor.Attribute.*;
 import java.util.ArrayList;
 
 
+/* ************************************************
+                    "User" CLASS
+
+    * Represents an individual User
+    * Has methods for saving itself to a file,
+        printing itself (in color), and creating/deleting posts
+    * Static method for reading any User 
+        from a file into memory
+
+*************************************************** */
+
 public class User {  
 
     //Static Attributes
@@ -28,13 +39,43 @@ public class User {
     private String password;
     protected boolean canPost = true;
     protected Attribute color = NONE();
+
     // ArrayList of user's posts
     protected ArrayList<Post> posts = new ArrayList<Post>();
 
 
 
-//Static Methods
-    //Open all users method
+
+/* ******************************************************************************
+                            STATIC METHODS
+******************************************************************************** */
+
+
+    protected static boolean checkFor(String u, String pw) {
+
+        for (int i=0; i<allUsers.size(); i++){
+            if (allUsers.get(i).username.equals(u) && allUsers.get(i).username.equals(pw)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+/* ***********************************************
+        METHODS FOR READING AND WRITING USERS
+************************************************** */
+
+/*
+    static Post.readUser()
+    * @params: 
+        - String filename: name of the file to read.
+
+    * @return User:
+        - if successful, return the post that was read
+        - if unsuccessful, return an empty User
+*/
+
     public static User readUser(String filename) {
 
         try {
@@ -63,6 +104,19 @@ public class User {
     }
 
 
+/* ******************************************************************************
+                            NON-STATIC METHODS
+******************************************************************************** */
+
+/*
+    save()
+    - Write the User instance the method was called on to a .bin file
+    * @params: None
+    * @return boolean:
+        - true if file write was successful
+        - false if an error occured
+*/
+
     public boolean save() {
 
         try {
@@ -90,21 +144,11 @@ public class User {
         }
     }
 
-    
-    //check username and password validity
-    protected static boolean checkFor(String u, String pw) {
-
-        for (int i=0; i<allUsers.size(); i++){
-            if (allUsers.get(i).username.equals(u) && allUsers.get(i).username.equals(pw)){
-                return true;
-            }
-        }
-        return false;
-    }
 
 
-
-//Non-Static Methods
+/* *********************************************** 
+                    CONSTRUCTORS
+************************************************** */
 
     public User() {
         
@@ -118,9 +162,21 @@ public class User {
         User.allUsers.add(this);
     }
 
+
+/* ******************************************** 
+                GETTERS / SETTERS
+*********************************************** */
+
+
     public String getUsername() {
         return username;
     }
+
+
+/* *********************************************** 
+                OTHER METHODS
+************************************************** */
+
 
     public boolean createPost(String text) {
 
@@ -130,16 +186,15 @@ public class User {
         } else {
             return false;
         }
-        
-        
     }
 
-    public boolean deletePost(int postID, User user) {
+
+    public boolean deletePost(int postID) {
 
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
             Post curr = Post.allPosts.get(i);
-            if (curr.getID() == postID && curr.getUser().username == user.username) {
+            if (curr.getID() == postID && curr.getUser().username == username) {
 
                 // TODO: remove file from folder...
                 Post.allPosts.remove(curr);
@@ -158,6 +213,4 @@ public class User {
 
         System.out.println(colorize(username, color));
     }
-
-
 }

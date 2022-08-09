@@ -114,9 +114,9 @@ public class Post implements Serializable {
     }
 
 
-/* *********************************************
+/* ***********************************************
         METHODS FOR READING AND WRITING POSTS
-************************************************ */
+************************************************** */
 
 /*
     static Post.readPost()
@@ -156,14 +156,14 @@ public class Post implements Serializable {
 
     
 /*
-    writePost()
-    * @params: 
-        - Post post: Post to be written. 
-        - String filename: username of the user who posted it
+    save()
+    - Write the Post instance the method was called on to a .bin file
+    * @params: None
     * @return boolean:
         - true if file write was successful
         - false if an error occured
 */
+
     public boolean save() {
 
         try {
