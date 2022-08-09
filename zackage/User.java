@@ -80,6 +80,19 @@ public class User {
         }
     }
 
+    protected static User findUser(String username) {
+
+        for (int i = 0; i < allUsers.size(); i++) {
+
+            if (allUsers.get(i).username == username) {
+                return allUsers.get(i);
+            }
+            
+        }
+
+        return null;
+    }
+
 
 /* ***********************************************
         METHODS FOR READING AND WRITING USERS
@@ -201,6 +214,7 @@ public class User {
 
         if (canPost) {
             Post newPost = new Post(text, this);
+            posts.add(newPost);
             return true;
         } else {
             return false;
@@ -228,8 +242,15 @@ public class User {
         password = null;
     }
 
+    /*
     public void printUsername(){
 
         System.out.println(colorize(username, color));
+    }
+    */
+
+    @Override
+    public String toString() {
+        return colorize(username, color);
     }
 }

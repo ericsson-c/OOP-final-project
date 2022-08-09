@@ -2,10 +2,13 @@ package zackage;
 
 import com.diogonunes.jcolor.Attribute;
 import static com.diogonunes.jcolor.Attribute.*;
+
+import java.io.Serializable;
+
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 
-public class Moderator extends User {
+public class Moderator extends User implements Serializable {
 /* ************************************************
                     "Moderator" CLASS
 
@@ -45,10 +48,19 @@ public class Moderator extends User {
 
     //Parameters: takes no parameters
     //Prints moderator's username is a blue to signifiy it is a moderator
+
+    /*
     @Override
     public void printUsername(){
 
         System.out.println(colorize(username + " (M)", color));
+    }
+    */
+
+    @Override
+    public String toString() {
+        
+        return colorize(username + " (M)", color);
     }
 
 }

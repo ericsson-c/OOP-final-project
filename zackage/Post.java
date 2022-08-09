@@ -33,7 +33,7 @@ public class Post implements Serializable {
         -> at runtime, all stored posts (located in /posts)
             are read into memory and into this array
     */
-    static ArrayList<Post> allPosts = new ArrayList<Post>();
+    public static ArrayList<Post> allPosts = new ArrayList<Post>();
 
     /*
         static int currentID:
@@ -42,7 +42,7 @@ public class Post implements Serializable {
             - When a new Post is constructed, assign it's id such
                 that newPost.id = Post.currentID + 1
     */
-    static int currentID = 0;
+    static int currentID = 1;
 
 
 //  --------- NON-STATIC ATTRIBUTES ------------ \\
@@ -54,18 +54,12 @@ public class Post implements Serializable {
     // user who posted this Post
     protected User user;
 
-    // timestamp of when the user posted this Post
-    private Date postedAt;
-
     // text content of the Post
     private String text;
+
+    // timestamp of when the user posted this Post
+    private Date postedAt;
     
-    // # of likes this Post has
-    private int likes;
-
-    // an ArrayList of users who've liked this Post
-    private ArrayList<String> likedBy;
-
 
 /* *********************************************** 
                     CONSTRUCTORS
@@ -85,12 +79,11 @@ public class Post implements Serializable {
     public Post(String text, User user) {
 
         this.postedAt = new Date(System.currentTimeMillis());
-        this.likes = 0;
         this.text = text;
         this.user = user;
-        this.id = Post.currentID + 1;
-        this.likedBy = new ArrayList<String>();
-        Post.allPosts.add(this);
+        this.id = Post.currentID;
+        Post.currentID ++;
+        allPosts.add(this);
 
         // save to a .bin file...
         
@@ -166,9 +159,10 @@ public class Post implements Serializable {
 
     public boolean save() {
 
+        System.out.println("id of post: " + id);
         try {
             
-            FileOutputStream fos = new FileOutputStream(id + ".bin");
+            FileOutputStream fos = new FileOutputStream(new File("posts/" + id + ".bin"));
             ObjectOutputStream ois = new ObjectOutputStream(fos);
             ois.writeObject(this);
 
@@ -185,7 +179,7 @@ public class Post implements Serializable {
 
         } catch (IOException e) {
 
-            // e.printStackTrace();
+            e.printStackTrace();
             System.err.println("IO Exception.");
             return false;
         }
@@ -216,6 +210,15 @@ public class Post implements Serializable {
 ************************************************ */
 
     public static void main(String[] args) throws FileNotFoundException {
+
+        Admin ericsson = new Admin("ericsson", "password");
+        Moderator zack = new Moderator("zack", "password");
+
+        Post p1 = new Post("hi zack", ericsson);
+        Post p2 = new Post("hi ericsson", zack);
+
+        System.out.println(p1.save());
+        System.out.println(p2.save());
 
         
     }

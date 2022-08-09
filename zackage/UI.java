@@ -15,13 +15,13 @@ import java.util.*;
 public class UI {
 
     // currently logged in user
-    protected static User user;
+    public static User user;
 
     // width (in characters) of program "screen"
     private static int screenWidth = 50;
 
     // single instance of Scanner created in Main
-    protected static Scanner kb;
+    public static Scanner kb;
 
 /* *********************************************** 
                     CONSTRUCTORS
@@ -70,16 +70,16 @@ public class UI {
 
 
     public static void askForInput() {
-        printLine("\n> ");
+        System.out.print("\n> ");
     }
     
 
-    public static User register() {
+    public static User register(Scanner kb) {
 
         printLine();
-        System.out.println("Username: ");
+        System.out.print("Username: ");
         String username = kb.next();
-        System.out.println("Password: ");
+        System.out.print("Password: ");
         String password = kb.next();
 
         return User.register(username, password);
@@ -87,16 +87,16 @@ public class UI {
     }
 
 
-    public static User login(){
+    public static User login(Scanner kb){
 
         printLine();
 
         User loggedInUser = null;
         String strLst[]  = new String[2];
         while(loggedInUser == null) {
-            System.out.println("Username: ");
+            System.out.print("Username: ");
             String username = kb.next();
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             String password = kb.next();
             
             strLst[0] = username;
@@ -119,11 +119,11 @@ public class UI {
         printLine("1. Create Post");
         printLine("2. Delete Post");
         printLine("3. Show Your Posts ");
-        printLine("4. Search for User's Posts");
-        printLine("5. Show all Posts");
+        // printLine("4. Search for User's Posts");
+        printLine("4. Show all Posts");
 
         if(user instanceof Admin){
-            printLine("6. Remove Post Privileges of User");
+            printLine("5. Set Post Privileges of User");
         }
 
         printLine("Type \"Q\" to Log Out");
@@ -140,6 +140,7 @@ public class UI {
             printLine("Please enter your post:\n");
             String post_text = kb.nextLine();
             user.createPost(post_text);
+
             return true;
 
         } else {
@@ -208,11 +209,57 @@ public class UI {
 
 
     public static void showAllPosts() {
+        for (int i = 0; i < Post.allPosts.size(); i++) {
+            printLine();
+            System.out.println(Post.allPosts.get(i));
+        }
+    }
+
+    public static void showUserPosts() {
         for (int i = 0; i < user.posts.size(); i++) {
+            printLine();
             System.out.println(user.posts.get(i));
         }
     }
 
+    public static boolean setPrivileges() {
+
+        printLine();
+        printLine("Enter the username of the user of User whose post privileges you'd like to set");
+        askForInput();
+        String username = kb.next();
+
+        printLine("Would you like to (1) restore privileges or (2) revoke privileges");
+        askForInput();
+        int addOrRevoke = kb.nextInt();
+        boolean set;
+
+        if (addOrRevoke == 1) {
+            set = true;
+
+        }  else {
+            set = false;
+        }
+
+        User badUser = User.findUser(username);
+        Admin a = (Admin) user;
+
+        if (user instanceof Admin && badUser != null) {
+
+            a.setPrivileges(badUser, set);
+            return true;
+
+        } else if (badUser == null) {
+
+            printLine("That user does not exist.");
+            return false;
+        
+        } else {
+
+            printLine("Only Admins can revoke privileges.");
+            return false;
+        }
+    }
 
     // for testing
     public static void main(String[] args) {

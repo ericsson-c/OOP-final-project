@@ -1,5 +1,7 @@
 package com.diogonunes.jcolor;
 
+import java.io.Serializable;
+
 class SimpleAttribute extends Attribute {
 
     private final String _code;

@@ -2,9 +2,12 @@ package zackage;
 
 import com.diogonunes.jcolor.Attribute;
 import static com.diogonunes.jcolor.Attribute.*;
+
+import java.io.Serializable;
+
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public class Admin extends User {
+public class Admin extends User implements Serializable{
 
 /* ************************************************
                     "Admin" CLASS
@@ -30,6 +33,7 @@ public class Admin extends User {
     //Parameters: User: user, boolean: set
     //admin has the ability to stop Users and Moderators from posting.
     public void setPrivileges(User user, boolean set){
+        
         user.canPost = set;
 
         if(set == user.canPost){
@@ -46,9 +50,17 @@ public class Admin extends User {
     
     //Parameters: takes no parameters
     //prints Username in red to signify that the user is an Admin
+    /*
     @Override
     public void printUsername(){
 
         System.out.println(colorize(username + " (A)", color));
+    }
+    */
+
+    @Override
+    public String toString() {
+        
+        return colorize(username + " (A)", color);
     }
 }

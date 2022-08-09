@@ -179,12 +179,12 @@ public class Main {
         if(userChoice.equalsIgnoreCase("R")){
 
         // return null if error
-           user = UI.register();
+           user = UI.register(input);
         }
         else if(userChoice.equalsIgnoreCase( "L")){
 
         // return null if error
-            user = UI.login();
+            user = UI.login(input);
         }
 
 
@@ -198,11 +198,14 @@ public class Main {
         // set static kb property to the created Scanner
         UI.kb = input;
 
+        String eatNewLine = "";
+
 
         while (!userChoice.equalsIgnoreCase("Q")) {
 
             UI.menu();
             userChoice = input.next();
+            eatNewLine = input.nextLine();
 
             if(userChoice.equals("1")){
 
@@ -216,8 +219,25 @@ public class Main {
             
             else if(userChoice.equals("3")){
                 
+                UI.showUserPosts();
+            }
+
+            else if(userChoice.equals("4")) {
+
                 UI.showAllPosts();
             }
+
+            else if(userChoice.equals("5") && user instanceof Admin) {
+
+                UI.setPrivileges();
+            }
+
+            else if(userChoice.equals("6")) {
+
+
+            }
+
+
         }
 
         // once user quits, print a message...
@@ -236,7 +256,7 @@ public class Main {
         // after printing error messages
 
         else {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             System.exit(1);
         }
         
