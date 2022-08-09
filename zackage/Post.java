@@ -217,16 +217,16 @@ public class Post implements Serializable {
         Post p1 = new Post("hi zack", ericsson);
         Post p2 = new Post("hi ericsson", zack);
 
-        // System.out.println(p1.save());
-        // System.out.println(p2.save());
+        System.out.println(p1.save());
+        System.out.println(p2.save());
 
         String path = System.getProperty("user.dir") + "/zackage/posts/";
-        System.out.println(path);
-        p1 = Post.readPost("1.bin");
-        p2 = Post.readPost("2.bin");
+        // System.out.println(path);
+        //p1 = Post.readPost("1.bin");
+        //p2 = Post.readPost("2.bin");
 
 
-        System.out.println(p1 + "\n\n" + p2);
+        // System.out.println(p1 + "\n\n" + p2);
 
         
     }

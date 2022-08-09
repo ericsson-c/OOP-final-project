@@ -42,7 +42,7 @@ public class User implements Serializable {
     // ArrayList of user's posts
     protected ArrayList<Post> posts = new ArrayList<Post>();
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
 
 /* ******************************************************************************
