@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public class Admin extends User implements Serializable{
+public class Admin extends User {
 
 /* ************************************************
                     "Admin" CLASS

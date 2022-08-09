@@ -8,7 +8,7 @@ import java.io.Serializable;
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 
-public class Moderator extends User implements Serializable {
+public class Moderator extends User {
 /* ************************************************
                     "Moderator" CLASS
 

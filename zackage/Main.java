@@ -23,20 +23,23 @@ public class Main {
     public static boolean loadPosts() {
 
         // path to the folder containing .bin files for all Posts
-        String pathToPostsFolder = System.getProperty("user.dir") + "/posts";
+        // String pathToPostsFolder = System.getProperty("user.dir") + "/posts";
+        String pathToPostsFolder = System.getProperty("user.dir") + "/zackage/posts";
 
         try {
 
             File postsFolder = new File(pathToPostsFolder);
             File[] listOfFiles = postsFolder.listFiles();
+            // System.out.println(listOfFiles);
 
             for (int i = 0; i < listOfFiles.length; i++) {
 
                 // get name of file ( should be {PostID}.bin )
                 String filename = listOfFiles[i].getName();
+                System.out.println(filename);
 
                 // read that Post into an object using Post.readPost()
-                Post p = Post.readPost(pathToPostsFolder + "/" + filename);
+                Post p = Post.readPost(filename);
 
                 // if Post was read without any errors, add it to the ArrayList
                 if (p != null) {
@@ -64,7 +67,7 @@ public class Main {
 
 
         // path to the folder containing .bin files for all Users
-        String pathToUsersFolder = System.getProperty("user.dir") + "/users";
+        String pathToUsersFolder = System.getProperty("user.dir") + "/zackage/users";
 
         try {
 
@@ -75,9 +78,10 @@ public class Main {
 
                 // get name of file ( should be {PostID}.bin )
                 String filename = listOfFiles[i].getName();
+                System.out.println(filename);
 
                 // read that Post into an object using Post.readPost()
-                User u = User.readUser(pathToUsersFolder + "/" + filename);
+                User u = User.readUser(filename);
 
                 // if Post was read without any errors, add it to the ArrayList
                 if (u != null) {
@@ -156,18 +160,14 @@ public class Main {
 ************************************************** */
     public static void main(String[] args) throws InterruptedException{
     
-        /*
-        TESTING
-        User zack = new Admin("zack", "zack");
-        User ericsson = new Moderator("ericsson", "password");
-        User user = new User("username", "password");
-
-        zack.printUsername();
-        ericsson.printUsername();
-        user.printUsername();
-        */
 
         // start by loading in Users and Posts from /users and /posts folders
+
+        boolean postsLoaded = loadPosts();
+        // boolean usersLoaded = loadUsers();
+
+        System.out.println(postsLoaded);
+
 
         Scanner input = new Scanner(System.in);
         UI.homepage();

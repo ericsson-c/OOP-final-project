@@ -124,7 +124,7 @@ public class Post implements Serializable {
 
         try {
 
-            FileInputStream fis = new FileInputStream(filename);
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/zackage/posts/" + filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object readObject = ois.readObject();
             Post readPost = (Post) readObject;
@@ -138,6 +138,7 @@ public class Post implements Serializable {
             return null;
 
         } catch(IOException e) {
+            e.printStackTrace();
             System.err.println("Could not create ObjectInputStream for " + filename);
             return null;
 
@@ -159,10 +160,9 @@ public class Post implements Serializable {
 
     public boolean save() {
 
-        System.out.println("id of post: " + id);
         try {
             
-            FileOutputStream fos = new FileOutputStream(new File("posts/" + id + ".bin"));
+            FileOutputStream fos = new FileOutputStream(new File("zackage/posts/" + id + ".bin"));
             ObjectOutputStream ois = new ObjectOutputStream(fos);
             ois.writeObject(this);
 
@@ -173,7 +173,7 @@ public class Post implements Serializable {
 
         } catch (FileNotFoundException e) {
 
-            // e.printStackTrace();
+            e.printStackTrace();
             System.err.println("FileNotFound Exception.");
             return false;
 
@@ -217,8 +217,16 @@ public class Post implements Serializable {
         Post p1 = new Post("hi zack", ericsson);
         Post p2 = new Post("hi ericsson", zack);
 
-        System.out.println(p1.save());
-        System.out.println(p2.save());
+        // System.out.println(p1.save());
+        // System.out.println(p2.save());
+
+        String path = System.getProperty("user.dir") + "/zackage/posts/";
+        System.out.println(path);
+        p1 = Post.readPost("1.bin");
+        p2 = Post.readPost("2.bin");
+
+
+        System.out.println(p1 + "\n\n" + p2);
 
         
     }

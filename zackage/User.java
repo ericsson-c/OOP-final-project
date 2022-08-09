@@ -1,5 +1,4 @@
 package zackage;
-import java.util.*;
 import java.io.*;
 
 /* 
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 
 *************************************************** */
 
-public class User {  
+public class User implements Serializable {  
 
     //Static Attributes
     static protected ArrayList<User> allUsers = new ArrayList<User>();
@@ -43,7 +42,7 @@ public class User {
     // ArrayList of user's posts
     protected ArrayList<Post> posts = new ArrayList<Post>();
 
-
+    private static final long serialVersionUID = 4L;
 
 
 /* ******************************************************************************
