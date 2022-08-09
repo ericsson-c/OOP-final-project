@@ -12,35 +12,83 @@ public class Main {
     loadPosts()
     - Loads posts from /post folder (stored in .bin files) into memory
     * @params: none
-    * @return: an ArrayList<Post> of all Posts that were read into memory
+    * @return: boolean
+        - true if successful
+        - false if an error occured
 */
 
-    public static ArrayList<Post> loadPosts() {
+    public static boolean loadPosts() {
 
-        // initialize an ArrayList to store all Posts
-        ArrayList<Post> readPosts = new ArrayList<Post>();
         // path to the folder containing .bin files for all Posts
-        String pathToPostsFolder = "/Users/ericssoncolborn/Documents/NYU/Summer_22/OOP-final-project/zackage/posts";
+        String pathToPostsFolder = System.getProperty("user.dir") + "/posts";
 
-        File postsFolder = new File(pathToPostsFolder);
-        File[] listOfFiles = postsFolder.listFiles();
+        try {
 
-        for (int i = 0; i < listOfFiles.length; i++) {
+            File postsFolder = new File(pathToPostsFolder);
+            File[] listOfFiles = postsFolder.listFiles();
 
-            // get name of file ( should be {PostID}.bin )
-            String filename = listOfFiles[i].getName();
+            for (int i = 0; i < listOfFiles.length; i++) {
 
-            // read that Post into an object using Post.readPost()
-            Post p = Post.readPost(pathToPostsFolder + "/" + filename);
+                // get name of file ( should be {PostID}.bin )
+                String filename = listOfFiles[i].getName();
 
-            // if Post was read without any errors, add it to the ArrayList
-            if (p != null) {
-                readPosts.add(p);
+                // read that Post into an object using Post.readPost()
+                Post p = Post.readPost(pathToPostsFolder + "/" + filename);
+
+                // if Post was read without any errors, add it to the ArrayList
+                if (p != null) {
+                    Post.allPosts.add(p);
+                }
             }
-        }
 
-        // return ArrayList of Posts
-        return readPosts;
+            return true;
+
+        } catch (Exception e) {
+
+            return false;
+        }
+    }
+
+/*
+    loadUsers()
+    - Loads users from /users folder (stored in .bin files) into memory
+    * @params: none
+    * w@return: boolean
+        - true if successful
+        - false if an error occured
+*/
+    public static boolean loadUsers() {
+
+
+        // path to the folder containing .bin files for all Users
+        String pathToUsersFolder = System.getProperty("user.dir") + "/users";
+
+        try {
+
+            File usersFolder = new File(pathToUsersFolder);
+            File[] listOfFiles = usersFolder.listFiles();
+
+            for (int i = 0; i < listOfFiles.length; i++) {
+
+                // get name of file ( should be {PostID}.bin )
+                String filename = listOfFiles[i].getName();
+
+                // read that Post into an object using Post.readPost()
+                User u = User.readUser(pathToUsersFolder + "/" + filename);
+
+                // if Post was read without any errors, add it to the ArrayList
+                if (u != null) {
+                    User.allUsers.add(u);
+                }
+            }
+
+            return true;
+
+
+        } catch (Exception e) {
+
+            return false;
+        }
     }
 
 
@@ -52,12 +100,19 @@ public class Main {
     * @params: none
     * @return: an ArrayList<Post> of all Posts that were read into memory
 */
+
+    // ON PROGRAM EXIT
+
     public static boolean savePosts() throws FileNotFoundException, IOException {
 
         return true;
     }
 
 
+    public static boolean saveUsers() throws FileNotFoundException, IOException {
+
+        return true;
+    }
 
 
 
@@ -65,17 +120,9 @@ public class Main {
                 MAIN() FUNCTION
 ************************************************** */
     public static void main(String[] args) {
-        
-        // Post p = new Post();
-
+    
         /*
-        try {
-            Main.loadPosts();
-        } catch (Exception e) {
-            // e.printStackTrace();
-        }
-        */
-
+        TESTING
         User zack = new Admin("zack", "zack");
         User ericsson = new Moderator("ericsson", "password");
         User user = new User("username", "password");
@@ -83,5 +130,24 @@ public class Main {
         zack.printUsername();
         ericsson.printUsername();
         user.printUsername();
+        */
+
+        // start by loading in Users and Posts from /users and /posts folders
+
+        Scanner input = new Scanner(System.in);
+        UI.homepage();
+
+        String userChoice = input.next();
+
+
+        
+        while (userChoice != "q") {
+
+        }
+
+        
+
+
+
     }
 }

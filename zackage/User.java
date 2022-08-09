@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class User {  
 
     //Static Attributes
-    static private ArrayList<User> allUsers = new ArrayList<User>();
+    static protected ArrayList<User> allUsers = new ArrayList<User>();
 
     //Non-Static Attributes
     protected String username;
@@ -62,6 +62,34 @@ public class User {
         }
     }
 
+
+    public boolean save() {
+
+        try {
+            
+            FileOutputStream fos = new FileOutputStream(username + ".bin");
+            ObjectOutputStream ois = new ObjectOutputStream(fos);
+            ois.writeObject(this);
+
+            ois.flush();
+            ois.close();
+
+            return true;
+
+        } catch (FileNotFoundException e) {
+
+            // e.printStackTrace();
+            System.err.println("FileNotFound Exception.");
+            return false;
+
+        } catch (IOException e) {
+
+            // e.printStackTrace();
+            System.err.println("IO Exception.");
+            return false;
+        }
+    }
+
     
     //check username and password validity
     protected static boolean checkFor(String u, String pw) {
@@ -95,8 +123,15 @@ public class User {
     }
 
     public boolean createPost(String text) {
-        Post newPost = new Post(text, this);
-        return true;
+
+        if (canPost) {
+            Post newPost = new Post(text, this);
+            return true;
+        } else {
+            return false;
+        }
+        
+        
     }
 
     public boolean deletePost(int postID, User user) {
