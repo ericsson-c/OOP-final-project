@@ -61,6 +61,25 @@ public class User {
         return false;
     }
 
+    protected static User login(String u, String pw) {
+        for (int i=0; i<allUsers.size(); i++){
+            if (allUsers.get(i).username.equals(u) && allUsers.get(i).username.equals(pw)){
+                return allUsers.get(i);
+            }
+        }
+        return null;
+    }
+
+    protected static User register(String u, String pw) {
+
+        try {
+            User user = new User(u, pw);
+            return user;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
 /* ***********************************************
         METHODS FOR READING AND WRITING USERS

@@ -178,13 +178,19 @@ public class Main {
 
         if(userChoice.equalsIgnoreCase("R")){
 
-           String strLst[] = UI.register();
-           user = new User(strLst[0],strLst[1]);
+        // return null if error
+           user = UI.register();
         }
         else if(userChoice.equalsIgnoreCase( "L")){
 
-            String strLst[] = UI.register();
-            user = new User(strLst[0],strLst[1]);
+        // return null if error
+            user = UI.login();
+        }
+
+
+        if (user == null) {
+            System.out.println("Error logging in or registering. Exiting program...");
+            System.exit(1);
         }
 
         // set static user property to the logged in / registered user
@@ -200,21 +206,27 @@ public class Main {
 
             if(userChoice.equals("1")){
 
-                String text = UI.createPost();
-                user.createPost(text);
+                UI.createPost();
+            }
 
-            }
             else if(userChoice.equals("2")){
-                int id = UI.deletePost();
-                user.deletePost(id);
+
+                UI.deletePost();
             }
+            
             else if(userChoice.equals("3")){
                 
+                UI.showAllPosts();
             }
         }
 
-        // once user quits, save Posts and Users in memory to their respective folders
+        // once user quits, print a message...
+        System.out.println("Thanks for using <insert name>!");
 
+        // close the scanner...
+        input.close();
+        
+        // and save Posts and Users in memory to their respective folders
         // if both were successfull, exit with status code 0 (normal)
         if (savePosts() && saveUsers()) {
             System.exit(0);

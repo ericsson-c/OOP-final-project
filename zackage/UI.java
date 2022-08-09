@@ -60,7 +60,7 @@ public class UI {
         System.out.println(output);
     }
 
-    
+
     public static void homepage() {
 
         printLine();
@@ -74,7 +74,7 @@ public class UI {
     }
     
 
-    public static String[] register() {
+    public static User register() {
 
         printLine();
         System.out.println("Username: ");
@@ -82,18 +82,18 @@ public class UI {
         System.out.println("Password: ");
         String password = kb.next();
 
-        String strLst[]  = { username, password };
-        return strLst;
+        return User.register(username, password);
+        
     }
 
 
-    public static String[] login(){
+    public static User login(){
 
         printLine();
 
-        boolean loggedIn = false;
+        User loggedInUser = null;
         String strLst[]  = new String[2];
-        while(!loggedIn) {
+        while(loggedInUser == null) {
             System.out.println("Username: ");
             String username = kb.next();
             System.out.println("Password: ");
@@ -102,10 +102,14 @@ public class UI {
             strLst[0] = username;
             strLst[1] = password;
 
-            loggedIn = User.checkFor(username, password);
+            loggedInUser = User.login(username, password);
+
+            if (loggedInUser == null) {
+                printLine("Username or password is incorrect. Please try again.\n");
+            }
         }
 
-        return strLst;
+        return loggedInUser;
     }
 
 
@@ -114,63 +118,63 @@ public class UI {
         printLine();
         printLine("1. Create Post");
         printLine("2. Delete Post");
-        printLine( "3. Show Your Posts ");
+        printLine("3. Show Your Posts ");
         printLine("4. Search for User's Posts");
         printLine("5. Show all Posts");
-        askForInput();
 
         if(user instanceof Admin){
             printLine("6. Remove Post Privileges of User");
-            printLine("Type \"Q\" to Log Out");
         }
-        else{
-            printLine("Type \"Q\" to Log Out");
-        }
+
+        printLine("Type \"Q\" to Log Out");
+        askForInput();
     }
 
 
-    public static String createPost() {
+    public static boolean createPost() {
 
         printLine();
 
         if (user.canPost) {
 
-            printLine("\nPlease enter your post:\n");
+            printLine("Please enter your post:\n");
             String post_text = kb.nextLine();
-            return post_text;
+            user.createPost(post_text);
+            return true;
 
         } else {
 
             printLine("Your post privilieges have been revoked!");
-            return "";
+            return false;
         } 
     }
 
 
-    public static int deletePost(){
+    public static boolean deletePost(){
 
         printLine();
 
-        if( user instanceof Moderator){
+        if (user instanceof Moderator){
             printLine("1. Delete your Post");
-            printLine( "2. Delete any Post");
+            printLine("2. Delete any Post");
             System.out.println("\nChoose an option: ");
             int opt = kb.nextInt();
 
-            if(opt == 1){
-               return user_deletePost(user);
+            if (opt == 1){
+               return user_deletePost();
             }
-            else{
+
+            else {
                 return mod_deletePost();
             }
         }
-        else{
-            return user_deletePost(user);
+        else {
+            return user_deletePost();
         }
     }
 
 
-    public static int user_deletePost(User user){
+    public static boolean user_deletePost(){
 
         printLine();
 
@@ -183,12 +187,11 @@ public class UI {
 
         System.out.println("\nType the ID of the post you want to delete: ");
         int delete_id = kb.nextInt();
-
-        return delete_id;
+        return user.deletePost(delete_id);
     }
 
 
-    public static int mod_deletePost(){
+    public static boolean mod_deletePost(){
         
         printLine();
 
@@ -200,13 +203,20 @@ public class UI {
 
         printLine("\nType the ID of the post you want to delete: ");
         int delete_id = kb.nextInt();
+        return user.deletePost(delete_id);
+    }
 
-        return delete_id;
+
+    public static void showAllPosts() {
+        for (int i = 0; i < user.posts.size(); i++) {
+            System.out.println(user.posts.get(i));
+        }
     }
 
 
     // for testing
     public static void main(String[] args) {
         
+
     }
 }
