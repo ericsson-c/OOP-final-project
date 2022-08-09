@@ -139,9 +139,33 @@ public class Main {
 
         String userChoice = input.next();
 
+        User user = new User();
 
+        if(userChoice.equalsIgnoreCase("R")){
+           String strLst[] = UI.register();
+           user = new User(strLst[0],strLst[1]);
+        }
+        else if(userChoice.equalsIgnoreCase( "L")){
+            String strLst[] = UI.register();
+            user = new User(strLst[0],strLst[1]);
+        }
         
-        while (userChoice != "q") {
+        while (!userChoice.equalsIgnoreCase("Q")) {
+            UI.menu(user);
+            userChoice = input.next();
+            if(userChoice.equals("1")){
+                String text = UI.createPost(user);
+                user.createPost(text);
+
+            }
+            else if(userChoice.equals("2")){
+                int id = UI.deletePost(user);
+                user.deletePost(id, user);
+            }
+            else if(userChoice.equals("3")){
+                
+            }
+
 
         }
 

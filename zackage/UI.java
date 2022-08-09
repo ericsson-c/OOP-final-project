@@ -17,12 +17,12 @@ import java.util.*;
 public class UI {
 
     // currently logged in user
-    private User user;
+    private static User user;
 
     // width (in characters) of program "screen"
     private static int screenWidth = 50;
 
-    private Scanner kb;
+    private static Scanner kb;
 
 /* *********************************************** 
                     CONSTRUCTORS
@@ -66,7 +66,7 @@ public class UI {
         printLine("\nWelcome! press L to login or R to register.");
     }
     
-    public String[] register() {
+    public static String[] register() {
         printLine();
         System.out.println("Username: ");
         String username = kb.next();
@@ -100,7 +100,7 @@ public class UI {
     }
 
 
-    public void menu() {
+    public static void menu(User user) {
 
         printLine();
         printLine("\n1. Create Post");
@@ -108,17 +108,17 @@ public class UI {
         printLine( "3. Show Your Posts ");
         printLine("4. Search for User's Posts");
         printLine("5. Show all Posts");
-        if(this.user instanceof Admin){
+        if(user instanceof Admin){
             printLine("6. Remove Post Privileges of User");
-            printLine("7. Log Out");
+            printLine("Type \"Q\" to Log Out");
         }
         else{
-            printLine("6. Log Out");
+            printLine("Type \"Q\" to Log Out");
         }
 
     }
 
-    public String createPost() {
+    public static String createPost(User user) {
 
         printLine();
         if (user.canPost) {
@@ -136,27 +136,27 @@ public class UI {
          
     }
 
-    public void deletePost(){
+    public static int deletePost(User user){
         printLine();
-        if( this.user instanceof Moderator){
+        if( user instanceof Moderator){
             printLine("1. Delete your Post");
             printLine( "2. Delete any Post");
             printLine("Choose an option: ");
             int opt = kb.nextInt();
 
             if(opt == 1){
-                user_deletePost(this.user);
+               return user_deletePost(user);
             }
             else{
-                mod_deletePost();
+                return mod_deletePost();
             }
         }
         else{
-            user_deletePost(this.user);
+            return user_deletePost(user);
         }
     }
 
-    public int user_deletePost(User user){
+    public static int user_deletePost(User user){
         printLine();
         for(int i = 0; i < user.posts.size(); i++){
             printLine();
@@ -170,7 +170,7 @@ public class UI {
         return delete_id;
     }
 
-    public int mod_deletePost(){
+    public static int mod_deletePost(){
         
         printLine();
         for(int i = 0; i < Post.allPosts.size(); i++){
