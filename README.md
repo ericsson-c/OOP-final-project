@@ -8,7 +8,7 @@ Thank you to [Diogo Nunes](https://github.com/dialex) for creating their open-so
 
 # Overview
 
-We have made a console-operated social media platform for our project. This system is similar to any text-based social media platform like Reddit, Twitter, Facebook, etc. and as such, will be built around two core objects: Users and Posts. The Admin and Moderator classes extend the User class and grant additional permissions and functionalities. 
+For out project, we created a console-operated social media platform. This system is similar to any text-based social media platform like Reddit, Twitter, Facebook, etc. and as such, will be built around two core objects: Users and Posts. The Admin and Moderator classes extend the User class and grant additional permissions and functionalities. 
 
 ### Actors and Objects
 
