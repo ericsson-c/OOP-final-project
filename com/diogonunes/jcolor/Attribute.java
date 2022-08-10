@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public abstract class Attribute implements Serializable {
 
+    private static final long serialVersionUID = 10L;
     /**
      * @return The Attribute's ansi escape code.
      */

@@ -170,9 +170,6 @@ public class Post implements Serializable {
             ois.flush();
             ois.close();
 
-            // delete reference to the file
-            // postFile.delete();
-
             return true;
 
         } catch (FileNotFoundException e) {

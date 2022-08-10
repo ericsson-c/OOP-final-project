@@ -1,9 +1,9 @@
 package com.diogonunes.jcolor;
 
-import java.io.Serializable;
 
 class SimpleAttribute extends Attribute {
 
+    private static final long serialVersionUID = 11L;
     private final String _code;
 
     /**
