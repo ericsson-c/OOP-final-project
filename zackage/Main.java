@@ -290,7 +290,7 @@ public class Main {
         // and save Posts and Users in memory to their respective folders
         // if both were successfull, exit with status code 0 (normal)
         if (savePosts() && saveUsers()) {
-            System.out.println("Thanks for using <insert name>!");
+            System.out.println("Thanks for using CrunchIt!");
             System.exit(0);
         }
 
