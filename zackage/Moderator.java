@@ -64,6 +64,7 @@ public class Moderator extends User {
                     METHODS
 ************************************************** */
 
+    
     //delete's a user's post
     //Parameters: int: postID, User: user
     @Override
@@ -76,6 +77,19 @@ public class Moderator extends User {
 
                 Post.allPosts.remove(curr);
             } 
+        }
+
+        for (int i = 0; i < User.allUsers.size(); i ++) {
+
+            User currUser = User.allUsers.get(i);
+            for (int j = 0; j < currUser.posts.size(); j++) {
+
+                Post currPost = currUser.posts.get(j);
+
+                if (currPost.getID() == postID) {
+                    currUser.posts.remove(currPost);
+                }
+            }
         }
 
         return true;

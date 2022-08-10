@@ -42,7 +42,7 @@ public class Post implements Serializable {
             - When a new Post is constructed, assign it's id such
                 that newPost.id = Post.currentID + 1
     */
-    static int currentID = 1;
+    public static int currentID = 1;
 
 
 //  --------- NON-STATIC ATTRIBUTES ------------ \\
@@ -162,12 +162,16 @@ public class Post implements Serializable {
 
         try {
             
-            FileOutputStream fos = new FileOutputStream(new File("zackage/posts/" + id + ".bin"));
+            File postFile = new File("zackage/posts/" + id + ".bin");
+            FileOutputStream fos = new FileOutputStream(postFile);
             ObjectOutputStream ois = new ObjectOutputStream(fos);
             ois.writeObject(this);
 
             ois.flush();
             ois.close();
+
+            // delete reference to the file
+            // postFile.delete();
 
             return true;
 

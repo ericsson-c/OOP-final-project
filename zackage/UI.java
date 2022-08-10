@@ -23,29 +23,10 @@ public class UI {
     // single instance of Scanner created in Main
     public static Scanner kb;
 
-/* *********************************************** 
-                    CONSTRUCTORS
-************************************************** */
-
-    /*
-    public UI() {
-
-    };
-
-    public UI(User user, Scanner s) {
-        this.user = user;
-        this.kb = s;
-    }
-    */
 
 
 /* *********************************************** 
-                GETTERS / SETTERS
-************************************************** */
-
-
-/* *********************************************** 
-                OTHER METHODS
+                    METHODS
 ************************************************** */
 
     public static void printLine() {
@@ -92,17 +73,24 @@ public class UI {
         printLine();
 
         User loggedInUser = null;
+        String username;
+        String password;
 
         while(loggedInUser == null) {
             System.out.print("Username: ");
-            String username = kb.next();
+            username = kb.next();
+
+            if (username.equalsIgnoreCase("Q")) {
+                System.exit(0);
+            }
+
             System.out.print("Password: ");
-            String password = kb.next();
+            password = kb.next();
     
             loggedInUser = User.login(username, password);
 
             if (loggedInUser == null) {
-                printLine("Username or password is incorrect. Please try again.\n");
+                printLine("\nUsername or password is incorrect. Please try again or press Q to exit.\n");
             }
         }
 
@@ -155,7 +143,7 @@ public class UI {
         if (user instanceof Moderator){
             printLine("1. Delete your Post");
             printLine("2. Delete any Post");
-            System.out.println("\nChoose an option: ");
+            System.out.print("\nChoose an option: ");
             int opt = kb.nextInt();
 
             if (opt == 1){
@@ -174,16 +162,13 @@ public class UI {
 
     public static boolean user_deletePost(){
 
-        printLine();
-
         for(int i = 0; i < user.posts.size(); i++){
             
             printLine();
             System.out.println(user.posts.get(i).getID() + " | " + user.posts.get(i));
-            printLine();
         }
 
-        System.out.println("\nType the ID of the post you want to delete: ");
+        System.out.print("\nType the ID of the post you want to delete: ");
         int delete_id = kb.nextInt();
         return user.deletePost(delete_id);
     }
@@ -206,7 +191,7 @@ public class UI {
 
 
     public static void showAllPosts() {
-        System.out.println("allPosts: " + Post.allPosts);
+
         for (int i = 0; i < Post.allPosts.size(); i++) {
             printLine();
             System.out.println(Post.allPosts.get(i));

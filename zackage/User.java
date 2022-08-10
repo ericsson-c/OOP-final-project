@@ -225,58 +225,42 @@ public class User implements Serializable {
 
     public boolean deletePost(int postID) {
 
+        // remove from allPosts array
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
             Post curr = Post.allPosts.get(i);
-            if (curr.getID() == postID && curr.getUser().username == username) {
+            if (curr.getID() == postID && curr.getUser().username.equals(username)) {
 
-                // TODO: remove file from folder...
                 Post.allPosts.remove(curr);
+            }
+        }
+
+        // remove from user's posts attribute
+        for (int i = 0; i < posts.size(); i++) {
+
+            Post curr = posts.get(i);
+            if (curr.getID() == postID) {
+
+                posts.remove(curr);
             } 
         }
 
         return true;
     }
 
-    public void deleteUser(){
+
+    public void deleteUser() {
         username = null;
         password = null;
     }
 
-    /*
-    public void printUsername(){
-
-        System.out.println(colorize(username, color));
-    }
-    */
-
+  
     @Override
     public String toString() {
         return colorize(username, color);
     }
 
     public static void main(String[] args) {
-        Admin zach = new Admin("zach", "crunched");
-        Moderator ericsson = new Moderator("ericsson", "saporro");
-        User user = new User("username", "password");
-        // user.save();
-
-        //System.out.println(zach.save());
-        //System.out.println(ericsson.save());
-
-        
-        zach = Admin.readAdmin("zach.bin");
-        ericsson = Moderator.readModerator("ericsson.bin");
-        user = User.readUser("username.bin");
-
-
-        // User f = User.readUser("ericsson.bin");
-
-        
-        System.out.println(ericsson);
-        System.out.println(zach);
-        System.out.println(user);
-        
-
+       
     }
 }

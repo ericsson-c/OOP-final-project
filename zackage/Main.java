@@ -23,7 +23,6 @@ public class Main {
     public static boolean loadPosts() {
 
         // path to the folder containing .bin files for all Posts
-        // String pathToPostsFolder = System.getProperty("user.dir") + "/posts";
         String pathToPostsFolder = System.getProperty("user.dir") + "/zackage/posts";
 
         try {
@@ -42,6 +41,7 @@ public class Main {
                 // if Post was read without any errors, add it to the ArrayList
                 if (p != null) {
                     Post.allPosts.add(p);
+                    Post.currentID++;
                 }
             }
 
@@ -57,7 +57,7 @@ public class Main {
     loadUsers()
     - Loads users from /users folder (stored in .bin files) into memory
     * @params: none
-    * w@return: boolean
+    * @return: boolean
         - true if successful
         - false if an error occured
 */
@@ -82,7 +82,7 @@ public class Main {
                 Moderator m = Moderator.readModerator(filename);
                 User u = User.readUser(filename);
 
-                // if Post was read without any errors, add it to the ArrayList
+                // if User t was read without any errors, add it to the ArrayList
                 if (a != null) {
                     User.allUsers.add(a);
 
@@ -118,6 +118,21 @@ public class Main {
 
     public static boolean savePosts() {
 
+        // first, clean out the Posts directory
+        try {
+
+            String pathToPostsFolder = System.getProperty("user.dir") + "/zackage/posts";
+            File postsFolder = new File(pathToPostsFolder);
+
+            for(File file: postsFolder.listFiles()) {
+                file.delete();
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error clearing posts directory before saving posts.");
+            return false;
+        }
+
         boolean allSuccessful = true;
         for (int i = 0; i < Post.allPosts.size(); i++) {
 
@@ -142,6 +157,8 @@ public class Main {
         - false if an error occured
 */
 
+    // ON PROGRAM EXIT
+
     public static boolean saveUsers() {
 
         boolean allSuccessful = true;
@@ -160,16 +177,36 @@ public class Main {
 
 
 
-/* *********************************************** 
-                MAIN() FUNCTION
-************************************************** */
+/* ************************************************************************************** 
+                                    MAIN() FUNCTION
+***************************************************************************************** */
+
     public static void main(String[] args) throws InterruptedException{
-    
+
+    /*  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // ZACH AND JOEY - CREATE YOU ACCOUNTS HERE
+        
+        Admin zach = new Admin("zach", "<your password>");
+        zach.save();
+
+        Admin joey = new Admin("joey", "<your password>");
+        joey.save();
+
+        System.exit(0);
+        
+    */
+
 
         // start by loading in Users and Posts from /users and /posts folders
 
         boolean postsLoaded = loadPosts();
         boolean usersLoaded = loadUsers();
+
+        if (!postsLoaded || !usersLoaded) {
+            System.out.println("There was an error starting the program. Please restart and try again.");
+            Thread.sleep(2000);
+            System.exit(1);
+        }
 
         // System.out.println(postsLoaded);
         // System.out.println(usersLoaded);
@@ -246,15 +283,14 @@ public class Main {
 
         }
 
-        // once user quits, print a message...
-        System.out.println("Thanks for using <insert name>!");
-
-        // close the scanner...
+        
+        // once user quits, close the scanner...
         input.close();
         
         // and save Posts and Users in memory to their respective folders
         // if both were successfull, exit with status code 0 (normal)
         if (savePosts() && saveUsers()) {
+            System.out.println("Thanks for using <insert name>!");
             System.exit(0);
         }
 
@@ -262,6 +298,7 @@ public class Main {
         // after printing error messages
 
         else {
+            System.out.println("An error occured while trying to exit the program.");
             Thread.sleep(3000);
             System.exit(1);
         }
