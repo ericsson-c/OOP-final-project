@@ -35,7 +35,7 @@
 # zackage/posts/
 
 # .Class files
-*.class
+# *.class
 
 # DS_Store
 .DS_Store

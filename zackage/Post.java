@@ -56,9 +56,6 @@ public class Post implements Serializable {
 
     // text content of the Post
     private String text;
-
-    // timestamp of when the user posted this Post
-    private Date postedAt;
     
 
 /* *********************************************** 
@@ -78,7 +75,6 @@ public class Post implements Serializable {
 */
     public Post(String text, User user) {
 
-        this.postedAt = new Date(System.currentTimeMillis());
         this.text = text;
         this.user = user;
         this.id = Post.currentID;
@@ -211,23 +207,6 @@ public class Post implements Serializable {
 ************************************************ */
 
     public static void main(String[] args) throws FileNotFoundException {
-
-        Admin ericsson = new Admin("ericsson", "password");
-        Moderator zack = new Moderator("zack", "password");
-
-        Post p1 = new Post("hi zack", ericsson);
-        Post p2 = new Post("hi ericsson", zack);
-
-        System.out.println(p1.save());
-        System.out.println(p2.save());
-
-        String path = System.getProperty("user.dir") + "/zackage/posts/";
-        // System.out.println(path);
-        //p1 = Post.readPost("1.bin");
-        //p2 = Post.readPost("2.bin");
-
-
-        // System.out.println(p1 + "\n\n" + p2);
 
         
     }

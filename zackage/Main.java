@@ -250,7 +250,6 @@ public class Main {
 
         String eatNewLine = "";
 
-
         while (!userChoice.equalsIgnoreCase("Q")) {
 
             UI.menu();
@@ -309,8 +308,6 @@ public class Main {
             Thread.sleep(3000);
             System.exit(1);
         }
-        
-
         
     }
 }
