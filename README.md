@@ -25,10 +25,6 @@ The menu will have standard options for social media. Once logged in it will pro
 1. At the most basic level, to create a system that enables create, read, update and delete (CRUD) operations for multiple users
 2. More specifically, to create an easy to use and straight forward text-based social media platform to connect with friends and demonstrate our understanding of object oriented principles. 
 
-Goal and Benefits
- At the most basic level, to create a system that enables create, read, update and delete (CRUD) operations for multiple users
-More specifically, to create an easy to use and straight forward text-based social media platform to connect with friends and demonstrate our understanding of object oriented principles. 
-
 ### System requirements & How to Run
 
 This program can be run on any MacOS, Windows, or Linux command line tool. To start the program from the root directory, enter the following command:
