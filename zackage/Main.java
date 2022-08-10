@@ -30,6 +30,7 @@ public class Main {
             File postsFolder = new File(pathToPostsFolder);
             File[] listOfFiles = postsFolder.listFiles();
 
+            int highestPostID = 0;
             for (int i = 0; i < listOfFiles.length; i++) {
 
                 // get name of file ( should be {PostID}.bin )
@@ -40,11 +41,14 @@ public class Main {
 
                 // if Post was read without any errors, add it to the ArrayList
                 if (p != null) {
+                    if (highestPostID < p.getID()) {
+                        highestPostID = p.getID();
+                    }
                     Post.allPosts.add(p);
-                    Post.currentID++;
                 }
             }
 
+            Post.currentID = highestPostID + 1;
             return true;
 
         } catch (Exception e) {
@@ -183,18 +187,21 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException{
 
-    /*  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // ZACH AND JOEY - CREATE YOU ACCOUNTS HERE
+    //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // EVERYONE - CREATE YOU ACCOUNTS HERE
         
-        Admin zach = new Admin("zach", "<your password>");
-        zach.save();
+        // Admin zach = new Admin("zach", "<your password>");
+        // zach.save();
 
-        Admin joey = new Admin("joey", "<your password>");
-        joey.save();
+        // Admin joey = new Admin("joey", "<your password>");
+        // joey.save();
 
-        System.exit(0);
-        
-    */
+        // Moderator ericsson = new Moderator("ericsson", "colborn");
+        // ericsson.save();
+
+        // System.exit(0);
+    //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
 
 
         // start by loading in Users and Posts from /users and /posts folders
