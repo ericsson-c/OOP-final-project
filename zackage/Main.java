@@ -190,7 +190,7 @@ public class Main {
     //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // EVERYONE - CREATE YOU ACCOUNTS HERE
         
-        // Admin zach = new Admin("zach", "<your password>");
+        // Admin zach = new Admin("zach", "crunched");
         // zach.save();
 
         // Admin joey = new Admin("joey", "<your password>");
